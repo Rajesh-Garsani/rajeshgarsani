@@ -15,7 +15,10 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/portfolio-data/')
+    // Dynamic API URL for Vercel deployment (falls back to localhost for local testing)
+    const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+    
+    axios.get(`${API_URL}/api/portfolio-data/`)
       .then(res => setData(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -39,7 +42,7 @@ function App() {
 
         {/* Project Detail Page */}
         <Route path="/project/:id" element={<ProjectDetail projects={data.projects} />} />
-
+        
         {/* Services Page */}
         <Route path="/services" element={<Services packages={data.packages || []} faqs={data.faqs || []} />} />
       </Routes>
