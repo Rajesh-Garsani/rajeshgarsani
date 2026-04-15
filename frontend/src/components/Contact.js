@@ -7,8 +7,14 @@ function Contact({ profile, socials }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus({ type: 'info', message: 'Sending...' }); // Optional: adds a loading state
+
+    // Dynamic API URL for Vercel deployment (falls back to localhost)
+    const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+
     try {
-      await axios.post('http://127.0.0.1:8000/api/contact/', formData);
+      // Updated to use the dynamic variable
+      await axios.post(`${API_URL}/api/contact/`, formData);
       setStatus({ type: 'success', message: 'Your message has been sent successfully!' });
       setFormData({ name: '', email: '', subject: '', message: '' }); // Reset
     } catch (error) {
@@ -47,7 +53,7 @@ function Contact({ profile, socials }) {
           </div>
 
           <div className="contact-form">
-            {status && <div className={`alert alert-${status.type}`}>{status.message}</div>}
+            {status && <div className={`alert alert-${status.type}`} style={{ marginBottom: '15px' }}>{status.message}</div>}
 
             <form onSubmit={handleSubmit}>
               <div className="form-group">
