@@ -10,7 +10,7 @@ function Hero({ profile }) {
         <div className="hero-content">
           <h1>Hi, I'm <span>{profile.name || "Rajesh kumar"}</span><br/>{profile.title || "Web Developer"}</h1>
 
-          {/* Highlighted Fix: Use dangerouslySetInnerHTML to parse the HTML */}
+          {/* Use dangerouslySetInnerHTML to parse the HTML */}
           <div
             className="hero-description-text"
             dangerouslySetInnerHTML={{ __html: profile.hero_description || fallbackDescription }}
@@ -22,15 +22,10 @@ function Hero({ profile }) {
           </div>
         </div>
 
+        {/* FIXED: Replaced the dynamic <style> injection with a standard React <img> tag */}
         <div className="hero-image">
           {profile.hero_image && (
-            <style>
-              {`
-                #home .hero-image::before {
-                  background: url(${profile.hero_image}) center/cover no-repeat !important;
-                }
-              `}
-            </style>
+             <img src={profile.hero_image} alt={profile.name || "Profile"} />
           )}
         </div>
       </div>

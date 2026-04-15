@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Profile, Project, ProjectImage, Skill, ContactMessage, SocialLink
+from .models import Profile, Project, ProjectImage, Skill, ContactMessage, SocialLink, ServicePackage, FAQ, ServiceContact
 
 
 # ==========================================
@@ -94,3 +94,8 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+admin.site.register(ServicePackage)
+admin.site.register(FAQ)
+admin.site.register(ServiceContact) # NEW

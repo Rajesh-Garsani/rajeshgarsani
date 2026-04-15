@@ -9,12 +9,12 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ProjectDetail from './components/ProjectDetail';
+import Services from './components/Services';
 
 function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    // FIXED: Changed this URL to match me/urls.py exactly
     axios.get('http://127.0.0.1:8000/api/portfolio-data/')
       .then(res => setData(res.data))
       .catch(err => console.error(err));
@@ -26,7 +26,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        {/* Route 1: The Main Homepage */}
+        {/* Main Homepage */}
         <Route path="/" element={
           <>
             <Hero profile={data.profile} />
@@ -37,8 +37,11 @@ function App() {
           </>
         } />
 
-        {/* Route 2: The Project Detail Page */}
+        {/* Project Detail Page */}
         <Route path="/project/:id" element={<ProjectDetail projects={data.projects} />} />
+
+        {/* Services Page */}
+        <Route path="/services" element={<Services packages={data.packages || []} faqs={data.faqs || []} />} />
       </Routes>
       <Footer />
     </Router>

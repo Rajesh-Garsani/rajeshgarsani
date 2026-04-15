@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Profile, Project, ProjectImage, Skill, SocialLink
+from .models import ServicePackage, FAQ
+from .models import ServiceContact
 
 # 1. Create a new serializer just for the gallery images
 class ProjectImageSerializer(serializers.ModelSerializer):
@@ -31,4 +33,28 @@ class SkillSerializer(serializers.ModelSerializer):
 class SocialLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialLink
+        fields = '__all__'
+
+
+# Add this at the bottom of backend/me/serializers.py
+
+
+class ServicePackageSerializer(serializers.ModelSerializer):
+    features_list = serializers.ReadOnlyField(source='get_features_list')
+    class Meta:
+        model = ServicePackage
+        fields = '__all__'
+
+class FAQSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FAQ
+        fields = '__all__'
+
+
+# Add this at the bottom of backend/me/serializers.py
+
+
+class ServiceContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceContact
         fields = '__all__'

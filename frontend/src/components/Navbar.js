@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Check if the user previously selected dark mode when the site loads
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio-theme');
     if (savedTheme === 'dark') {
@@ -13,9 +13,7 @@ function Navbar() {
     }
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const toggleTheme = () => {
     if (isDarkMode) {
@@ -37,15 +35,17 @@ function Navbar() {
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`} id="nav-links">
-              <li><a href="/#home" className="active" onClick={toggleMenu}>Home</a></li>
+              <li><a href="/#home" onClick={toggleMenu}>Home</a></li>
               <li><a href="/#about" onClick={toggleMenu}>About</a></li>
-
               <li><a href="/#skills" onClick={toggleMenu}>Skills</a></li>
+
+              {/* Navigate to standalone Services Page */}
+              <li><Link to="/services" onClick={toggleMenu} style={{color: 'var(--primary)', fontWeight: 'bold'}}>Services</Link></li>
+
               <li><a href="/#projects" onClick={toggleMenu}>Projects</a></li>
               <li><a href="/#contact" onClick={toggleMenu}>Contact</a></li>
             </ul>
 
-            {/* Dark Mode Toggle Button */}
             <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle Dark Mode">
               <i className={isDarkMode ? 'fas fa-sun' : 'fas fa-moon'}></i>
             </button>

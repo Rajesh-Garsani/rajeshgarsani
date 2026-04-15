@@ -172,20 +172,32 @@ header {
     font-size: 1.5rem;
 }
 
-/* Hero Section */
+/* =========================================
+   HERO SECTION (FIXED: FLEXBOX LAYOUT)
+   ========================================= */
 #home {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
     position: relative;
     overflow: hidden;
+    padding-top: 80px; /* Accounts for the navbar */
+}
+
+#home .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
 }
 
 .hero-content {
+    flex: 1;
+    min-width: 300px;
     position: relative;
     z-index: 2;
-    max-width: 650px;
 }
 
 .hero-content h1 {
@@ -212,27 +224,30 @@ header {
 }
 
 .hero-image {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    width: 500px;
-    height: 500px;
+    position: relative;
+    width: 450px;
+    height: 450px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    flex-shrink: 0; /* Prevents squishing */
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.2);
 }
 
-.hero-image::before {
-    content: '';
-    position: absolute;
+/* Adjusts the actual image tag to fit perfectly in the circle */
+.hero-image img {
     width: 90%;
     height: 90%;
     border-radius: 50%;
-    background-color: transparent; /* FIXED: Removed hardcoded image path */
+    object-fit: cover;
     border: 5px solid white;
+    z-index: 2;
+}
+
+body.dark-mode .hero-image img {
+    border-color: #262626;
 }
 
 /* About Section */
@@ -296,7 +311,6 @@ header {
     font-size: 1.2rem;
 }
 
-
 /* Skills Section */
 /* --- ULTRA-MODERN BENTO BOX SKILLS SECTION --- */
 .modern-skills-section {
@@ -314,7 +328,7 @@ header {
 /* Premium Card Design */
 .bento-card {
     background: #ffffff;
-    border-radius: 24px; /* Smoother, larger border radius */
+    border-radius: 24px;
     padding: 40px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -367,7 +381,7 @@ header {
     background: #f8fafc;
     color: var(--secondary);
     padding: 12px 22px;
-    border-radius: 50px; /* Perfect pill shape */
+    border-radius: 50px;
     font-size: 0.95rem;
     font-weight: 600;
     border: 1px solid #e2e8f0;
@@ -397,18 +411,7 @@ header {
 .modern-skill-pill:hover .pill-dot {
     background-color: white;
     opacity: 1;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Glow effect */
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .skills-bento-box {
-        grid-template-columns: 1fr;
-    }
-
-    .bento-card {
-        padding: 30px 25px;
-    }
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 /* Projects Section */
@@ -625,15 +628,21 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* =========================================
+   FIXED RESPONSIVE DESIGN
+   ========================================= */
 @media (max-width: 992px) {
     .hero-content {
         max-width: 500px;
     }
 
     .hero-image {
-        width: 450px;
-        height: 450px;
+        width: 350px;
+        height: 350px;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
     }
 
     .about-content,
@@ -646,7 +655,7 @@ footer {
         margin: 0 auto;
     }
 
-    .skills-container {
+    .skills-bento-box {
         grid-template-columns: 1fr;
     }
 }
@@ -678,16 +687,41 @@ footer {
         margin: 15px 0;
     }
 
-    .hero-content h1 {
-        font-size: 2.8rem;
+    /* Fixed Hero Layout for Mobile */
+    #home .container {
+        flex-direction: column-reverse;
+        text-align: center;
+        justify-content: center;
+        padding-top: 40px;
+    }
+
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .hero-image {
-        display: none;
+        display: flex;
+        width: 280px;
+        height: 280px;
+        margin-bottom: 30px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-btns {
+        justify-content: center;
     }
 
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .bento-card {
+        padding: 30px 25px;
     }
 }
 
@@ -709,21 +743,17 @@ footer {
     }
 }
 
-
-
 /* =========================================
    DARK MODE OVERRIDES (True Pitch Black)
    ========================================= */
-/* When the body has the 'dark-mode' class, we use pure black and neutral grays */
 body.dark-mode {
-    --light: #000000;        /* Pure pitch black background */
-    --dark: #ffffff;         /* Pure white text */
-    --secondary: #e5e5e5;    /* Light neutral gray for headings */
-    --gray: #a3a3a3;         /* Mid neutral gray for paragraphs */
-    --light-gray: #262626;   /* Dark neutral gray for borders */
+    --light: #000000;
+    --dark: #ffffff;
+    --secondary: #e5e5e5;
+    --gray: #a3a3a3;
+    --light-gray: #262626;
 }
 
-/* Ensure cards and header adapt beautifully to true black */
 body.dark-mode header {
     background: rgba(0, 0, 0, 0.95);
     border-bottom: 1px solid #1a1a1a;
@@ -734,7 +764,7 @@ body.dark-mode .service-card,
 body.dark-mode .project-card,
 body.dark-mode .media-card,
 body.dark-mode .modern-skill-pill {
-    background: #111111; /* Very dark gray so cards stand out from the black background */
+    background: #111111;
     border-color: #262626;
     color: var(--dark);
 }
@@ -744,7 +774,6 @@ body.dark-mode .modern-skill-pill:hover {
     color: var(--light);
 }
 
-/* Theme Toggle Button Styling */
 .theme-toggle {
     background: transparent;
     border: none;
@@ -755,11 +784,10 @@ body.dark-mode .modern-skill-pill:hover {
     margin-left: 20px;
     display: flex;
     align-items: center;
-    -webkit-tap-highlight-color: transparent; /* Removes blue tap highlight on mobile */
-    outline: none; /* Removes blue focus ring on desktop */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
 }
 
-/* Button turns black on hover in light mode, and white in dark mode */
 .theme-toggle:hover, .theme-toggle:focus {
     color: #000000;
     transform: scale(1.1);
@@ -771,20 +799,14 @@ body.dark-mode .theme-toggle:focus {
     color: #ffffff;
 }
 
-/* =========================================
-   DARK MODE FIXES (Footer & Contact)
-   ========================================= */
-/* Keep the contact section dark and sleek */
 body.dark-mode #contact {
     background: linear-gradient(135deg, #111111 0%, #000000 100%);
 }
 
-/* Keep the footer background pitch black */
 body.dark-mode footer {
     background: #000000;
 }
 
-/* Ensure the contact form inputs remain legible in dark mode */
 body.dark-mode .contact-form input,
 body.dark-mode .contact-form textarea {
     background: rgba(255, 255, 255, 0.05);
@@ -803,6 +825,6 @@ body.dark-mode .contact-form textarea::placeholder {
     margin-bottom: 15px;
 }
 .rich-text-content pre {
-    border-radius: 8px; /* Rounds the corners of your code blocks */
+    border-radius: 8px;
     margin-bottom: 20px;
 }

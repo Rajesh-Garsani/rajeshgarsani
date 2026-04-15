@@ -1,0 +1,223 @@
+/* frontend/src/components/Services.css */
+
+.pricing-grid {
+  display: grid;
+  /* FIX 1: Changed auto-fit to auto-fill. This stops 1 or 2 cards from stretching across the entire screen! */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+  justify-content: center; /* Centers the cards if there are only 1 or 2 */
+}
+
+/* Light Mode Card Styling */
+.pricing-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 35px 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+  max-width: 400px; /* Prevents cards from ever getting too wide */
+  width: 100%;
+  margin: 0 auto; /* Keeps them centered */
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+}
+
+.pricing-card.best-seller {
+  border: 2px solid var(--primary);
+  transform: scale(1.02);
+}
+
+.pricing-card.best-seller:hover {
+  transform: scale(1.02) translateY(-5px);
+}
+
+.badge-best-seller {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.pkg-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 5px;
+}
+
+.pkg-price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--secondary);
+  margin-bottom: 15px;
+}
+
+.pkg-desc {
+  color: var(--gray);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  min-height: 50px;
+}
+
+.pkg-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--gray);
+}
+
+.pkg-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  flex-grow: 1;
+}
+
+.pkg-features li {
+  margin-bottom: 12px;
+  color: var(--gray);
+  display: flex;
+  align-items: flex-start; /* Aligns text with icons properly if text breaks to a new line */
+  gap: 10px;
+}
+
+/* --- Dedicated Service Form Styles --- */
+.service-contact-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.service-contact-form-container, .benefit-card, .faq-item {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.service-contact-form-container {
+  padding: 40px;
+}
+
+.benefit-card {
+  padding: 20px;
+  text-align: center;
+}
+
+.faq-item {
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 8px;
+}
+
+.service-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #f8fafc;
+  color: var(--secondary);
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Ensures padding doesn't push width out of bounds */
+}
+
+.service-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.service-input.file-input {
+  padding: 9px 15px;
+  cursor: pointer;
+}
+
+/* Category Animations */
+.category-section {
+  animation: fadeIn 0.8s ease-in-out;
+}
+.category-header {
+  margin-bottom: 30px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   FIX 2: FLAWLESS MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 768px) {
+  /* Forces form grids to stack vertically */
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  /* Reduces massive padding so cards fit on small phone screens */
+  .pricing-card {
+    padding: 30px 20px !important;
+  }
+
+  /* Reduces padding in the form so inputs aren't squished */
+  .service-contact-form-container {
+    padding: 30px 20px !important;
+  }
+
+  /* Shrinks large text to prevent overflowing */
+  .services-header h2 {
+    font-size: 2.2rem !important;
+  }
+
+  .category-header h3 {
+    font-size: 1.6rem !important;
+  }
+}
+
+/* =========================================
+   DARK MODE INTEGRATION
+   ========================================= */
+body.dark-mode .pricing-card,
+body.dark-mode .service-contact-form-container,
+body.dark-mode .benefit-card,
+body.dark-mode .faq-item {
+    background: #111111;
+    border-color: #262626;
+}
+
+body.dark-mode .service-input {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .service-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
